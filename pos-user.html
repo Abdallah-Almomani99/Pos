@@ -107,6 +107,16 @@
         </div>
     </div>
 
+    <!-- Modal for Drinks -->
+    <div class="drink-modal" id="drinkModal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeDrinkModal()">&times;</span>
+            <h2>Drinks Menu</h2>
+            <div id="drinksContainer" class="drinks-container">
+                <!-- Drink cards will be dynamically added here -->
+            </div>
+        </div>
+    </div>
 
     <script>
         const tabs = document.querySelectorAll('.tab');
@@ -149,8 +159,39 @@
             modal.style.display = 'none';
         }
 
+        const drinks = [
+            { name: 'Coke', description: 'Refreshing cola drink', image: '/img/coke.jpg' },
+            { name: 'Pepsi', description: 'Smooth and cool', image: '/img/pepsi.jpg' },
+            { name: 'Sprite', description: 'Lemon-lime soda', image: '/img/sprite.jpg' },
+            { name: 'Fanta', description: 'Orange flavored soda', image: '/img/fanta.jpg' }
+        ];
+
+        // Open the drink menu modal
         function openMenu(tableNumber) {
-            alert(`Opening menu for table ${tableNumber}`);
+            // alert(`Opening menu for table ${tableNumber}`);
+
+            // Show the modal
+            document.getElementById('drinkModal').style.display = 'block';
+
+            // Populate the drinks container with drink cards
+            const drinksContainer = document.getElementById('drinksContainer');
+            drinksContainer.innerHTML = ''; // Clear previous content
+
+            drinks.forEach(drink => {
+                const drinkCard = document.createElement('div');
+                drinkCard.classList.add('drink-card');
+                drinkCard.innerHTML = `
+                    <img src="${drink.image}" alt="${drink.name}">
+                    <h3>${drink.name}</h3>
+                    <p>${drink.description}</p>
+                `;
+                drinksContainer.appendChild(drinkCard);
+            });
+        }
+
+        // Close the drink modal
+        function closeDrinkModal() {
+            document.getElementById('drinkModal').style.display = 'none';
         }
 
         function printBill(tableNumber) {
