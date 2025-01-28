@@ -101,9 +101,9 @@
                 <div class="navbar-nav w-100">
                     <a href="index.html" class="nav-item nav-link"><i
                             class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="blank.html" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Billiards
+                    <a href="blank.html" class="nav-item nav-link "><i class="fa fa-table me-2"></i>Billiards
                         Table</a>
-                    <a href="drinks.html" class="nav-item nav-link "><i class="fa fa-table me-2"></i>Drinkes</a>
+                    <a href="drinks.html" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Drinkes</a>
                     <!-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-laptop me-2"></i>Elements</a>
@@ -234,143 +234,107 @@
             <div class="container py-4">
                 <h1 class="text-center mb-4">Billiards POS System</h1>
 
-                <!-- Tables Grid -->
-                <div class="row g-3" id="tables-container">
-                    <!-- Example Table -->
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="table-box position-relative" onclick="editTable(this, 1, 'Snooker', 10)">
-                            <div>
-                                <h5>Table 1</h5>
-                                <p>Type: Snooker</p>
-                                <p>Price: $10/hour</p>
+                <!-- Drinks Section -->
+                <div class="container my-4">
+                    <h3 class="text-center">Manage Drinks</h3>
+                    <div class="row" id="drinks-container">
+                        <!-- Example Drink Item -->
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="table-box position-relative">
+                                <img src="img/cola.png" alt="Drink Photo"
+                                    style="width: 100px; height: 100px; border-radius: 10px;">
+                                <div class="mt-2 text-center">
+                                    <h5>Cola</h5>
+                                    <p>$1</p>
+                                </div>
                             </div>
-                            <!-- زر الحذف -->
-                            <button class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2 rounded-circle"
-                                onclick="deleteTable(event, this)">
-                                <i class="fa fa-times"></i>
-                            </button>
                         </div>
-                    </div>
 
-
-                    <!-- Add Table Button -->
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="table-box add-table" onclick="addNewTable()">
-                            <div class="text-center">
-                                <h3>+</h3>
-                                <p>Add Table</p>
+                        <!-- Add Drink Button -->
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="table-box add-table" onclick="addNewDrink()">
+                                <div class="text-center">
+                                    <h3>+</h3>
+                                    <p>Add Drink</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="tableModal" tabindex="-1" aria-labelledby="tableModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="tableModalLabel">Edit Table</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="tableForm">
-                                <div class="mb-3">
-                                    <label for="tableNumber" class="form-label">Table Number</label>
-                                    <input type="number" class="form-control" id="tableNumber" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="tableType" class="form-label">Type</label>
-                                    <select class="form-select" id="tableType" required>
-                                        <option value="Snooker">Regular Table</option>
-                                        <option value="Snooker">Snooker Table</option>
-                                        <option value="Normal">Billiard Table</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="tablePrice" class="form-label">Price/hour</label>
-                                    <input type="number" class="form-control" id="tablePrice" required>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" onclick="saveTable()">Save</button>
+                <!-- Drinks Modal -->
+                <div class="modal fade" id="drinkModal" tabindex="-1" aria-labelledby="drinkModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="drinkModalLabel">Add/Edit Drink</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="drinkForm">
+                                    <div class="mb-3">
+                                        <label for="drinkName" class="form-label">Drink Name</label>
+                                        <input type="text" class="form-control" id="drinkName" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="drinkPrice" class="form-label">Price</label>
+                                        <input type="number" class="form-control" id="drinkPrice" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="drinkPhoto" class="form-label">Photo</label>
+                                        <input type="file" class="form-control" id="drinkPhoto" accept="image/*"
+                                            required>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="saveDrink()">Save</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- JavaScript -->
-            <script>
-                let editingTable = null;
-
-                function addNewTable() {
-                    editingTable = null;
-                    document.getElementById('tableForm').reset();
-                    document.getElementById('tableModalLabel').innerText = 'Add New Table';
-                    const modal = new bootstrap.Modal(document.getElementById('tableModal'));
-                    modal.show();
-                }
-
-                function editTable(element, number, type, price) {
-                    editingTable = element;
-                    document.getElementById('tableModalLabel').innerText = 'Edit Table';
-                    document.getElementById('tableNumber').value = number;
-                    document.getElementById('tableType').value = type;
-                    document.getElementById('tablePrice').value = price;
-                    const modal = new bootstrap.Modal(document.getElementById('tableModal'));
-                    modal.show();
-                }
-
-                function saveTable() {
-                    const number = document.getElementById('tableNumber').value;
-                    const type = document.getElementById('tableType').value;
-                    const price = document.getElementById('tablePrice').value;
-
-                    if (editingTable) {
-                        editingTable.innerHTML = `
-            <div class="position-relative">
-                <div>
-                    <h5>Table ${number}</h5>
-                    <p>Type: ${type}</p>
-                    <p>Price: $${price}/hour</p>
-                </div>
-                <!-- زر الحذف -->
-                <button class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2 rounded-circle" onclick="deleteTable(event, this)">
-                    <i class="fa fa-times"></i>
-                </button>
-            </div>`;
-                    } else {
-                        const container = document.getElementById('tables-container');
-                        const newTable = document.createElement('div');
-                        newTable.className = 'col-lg-3 col-md-4 col-sm-6';
-                        newTable.innerHTML = `
-            <div class="table-box position-relative" onclick="editTable(this, ${number}, '${type}', ${price})">
-                <div>
-                    <h5>Table ${number}</h5>
-                    <p>Type: ${type}</p>
-                    <p>Price: $${price}/hour</p>
-                </div>
-                <!-- زر الحذف -->
-                <button class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2 rounded-circle" onclick="deleteTable(event, this)">
-                    <i class="fa fa-times"></i>
-                </button>
-            </div>`;
-                        container.insertBefore(newTable, container.lastElementChild);
+                <!-- JavaScript -->
+                <script>
+                    function addNewDrink() {
+                        document.getElementById('drinkForm').reset();
+                        const modal = new bootstrap.Modal(document.getElementById('drinkModal'));
+                        modal.show();
                     }
 
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('tableModal'));
-                    modal.hide();
-                }
+                    function saveDrink() {
+                        const name = document.getElementById('drinkName').value;
+                        const price = document.getElementById('drinkPrice').value;
+                        const photo = document.getElementById('drinkPhoto').files[0];
 
-                function deleteTable(event, button) {
-                    event.stopPropagation();
-                    const tableElement = button.closest('.col-lg-3');
-                    tableElement.remove();
-                }
+                        if (name && price && photo) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                const container = document.getElementById('drinks-container');
+                                const newDrink = document.createElement('div');
+                                newDrink.className = 'col-lg-3 col-md-4 col-sm-6';
+                                newDrink.innerHTML = `
+                                    <div class="table-box position-relative">
+                                        <img src="${e.target.result}" alt="Drink Photo" style="width: 100px; height: 100px; border-radius: 10px;">
+                                        <div class="mt-2 text-center">
+                                            <h5>${name}</h5>
+                                            <p>$${price}</p>
+                                        </div>
+                                    </div>`;
+                                container.insertBefore(newDrink, container.lastElementChild);
+                            };
+                            reader.readAsDataURL(photo);
 
-            </script>
+                            const modal = bootstrap.Modal.getInstance(document.getElementById('drinkModal'));
+                            modal.hide();
+                        }
+                    }
+                </script>
+
+            </div>
 
 
 
