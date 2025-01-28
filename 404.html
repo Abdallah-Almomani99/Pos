@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billiardo POS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 5px 5px 0 0;
+            background-color: #f4f4f4;
+            margin-right: 5px;
+        }
+
+        .tab.active {
+            background-color: white;
+            border-bottom: none;
+        }
+
+        .tab-content {
+            display: none;
+            border: 1px solid #ccc;
+            border-radius: 0 0 5px 5px;
+            padding: 20px;
+            background-color: white;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        .card img {
+            height: 200px;
+            margin-bottom: 10px;
+        }
+
+        .card button {
+            margin: 5px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .card button:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Billiardo POS</h1>
+        <div class="tabs">
+            <div class="tab active" data-tab="normal">Billeardo Normal</div>
+            <div class="tab" data-tab="snooker">Snooker</div>
+            <div class="tab" data-tab="regular">Regular Table</div>
+        </div>
+
+        <div id="normal" class="tab-content active">
+            <div class="grid">
+                <div class="card">
+                    <img src="/img/normal-table.png.jpg" alt="Table 1">
+                    <p>Table 1</p>
+                    <button onclick="bookTable(1)">Book</button>
+                    <button onclick="openMenu(1)">Menu</button>
+                    <button onclick="printBill(1)">Bill</button>
+                </div>
+                <!-- Add more tables as needed -->
+                <div class="card">
+                    <img src="/img/normal-table.png.jpg" alt="Table 1">
+                    <p>Table 2</p>
+                    <button onclick="bookTable(2)">Book</button>
+                    <button onclick="openMenu(2)">Menu</button>
+                    <button onclick="printBill(2)">Bill</button>
+                </div>
+                <div class="card">
+                    <img src="/img/normal-table.png.jpg" alt="Table 1">
+                    <p>Table 3</p>
+                    <button onclick="bookTable(3)">Book</button>
+                    <button onclick="openMenu(3)">Menu</button>
+                    <button onclick="printBill(3)">Bill</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="snooker" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <img src="/img/snooker-table.png" alt="Table 1">
+                    <p>Table 1</p>
+                    <button onclick="bookTable(1)">Book</button>
+                    <button onclick="openMenu(1)">Menu</button>
+                    <button onclick="printBill(1)">Bill</button>
+                </div>
+                <!-- Add more tables as needed -->
+                <div class="card">
+                    <img src="/img/snooker-table.png" alt="Table 1">
+                    <p>Table 2</p>
+                    <button onclick="bookTable(2)">Book</button>
+                    <button onclick="openMenu(2)">Menu</button>
+                    <button onclick="printBill(2)">Bill</button>
+                </div>
+                <div class="card">
+                    <img src="/img/snooker-table.png" alt="Table 1">
+                    <p>Table 3</p>
+                    <button onclick="bookTable(3)">Book</button>
+                    <button onclick="openMenu(3)">Menu</button>
+                    <button onclick="printBill(3)">Bill</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="regular" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <img src="/img/regular-table.png" alt="Table 1">
+                    <p>Table 1</p>
+                    <button onclick="bookTable(1)">Book</button>
+                    <button onclick="openMenu(1)">Menu</button>
+                    <button onclick="printBill(1)">Bill</button>
+                </div>
+                <!-- Add more tables as needed -->
+                <div class="card">
+                    <img src="/img/regular-table.png" alt="Table 1">
+                    <p>Table 2</p>
+                    <button onclick="bookTable(2)">Book</button>
+                    <button onclick="openMenu(2)">Menu</button>
+                    <button onclick="printBill(2)">Bill</button>
+                </div>
+                <div class="card">
+                    <img src="/img/regular-table.png" alt="Table 1">
+                    <p>Table 3</p>
+                    <button onclick="bookTable(3)">Book</button>
+                    <button onclick="openMenu(3)">Menu</button>
+                    <button onclick="printBill(3)">Bill</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelector('.tab.active').classList.remove('active');
+                tab.classList.add('active');
+
+                document.querySelector('.tab-content.active').classList.remove('active');
+                document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
+            });
+        });
+
+        function bookTable(tableNumber) {
+            alert(`Booking table ${tableNumber}`);
+        }
+
+        function openMenu(tableNumber) {
+            alert(`Opening menu for table ${tableNumber}`);
+        }
+
+        function printBill(tableNumber) {
+            alert(`Printing bill for table ${tableNumber}`);
+        }
+    </script>
+</body>
+
+</html>
