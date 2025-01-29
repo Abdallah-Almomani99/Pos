@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Billiardo POS</title>
-    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="./css/user.css">
 </head>
 
 <body>
@@ -20,21 +20,21 @@
         <div id="normal" class="tab-content active">
             <div class="grid">
                 <div class="card">
-                    <img src="/img/normal-table.png.jpg" alt="Table 1">
+                    <img src="./img/normal-table.png.jpg" alt="Table 1">
                     <p>Table 1</p>
                     <button onclick="bookTable(1)">Book</button>
                     <button onclick="openMenu(1)">Menu</button>
                     <button onclick="printBill(1)">Bill</button>
                 </div>
                 <div class="card">
-                    <img src="/img/normal-table.png.jpg" alt="Table 2">
+                    <img src="./img/normal-table.png.jpg" alt="Table 2">
                     <p>Table 2</p>
                     <button onclick="bookTable(2)">Book</button>
                     <button onclick="openMenu(2)">Menu</button>
                     <button onclick="printBill(2)">Bill</button>
                 </div>
                 <div class="card">
-                    <img src="/img/normal-table.png.jpg" alt="Table 3">
+                    <img src="./img/normal-table.png.jpg" alt="Table 3">
                     <p>Table 3</p>
                     <button onclick="bookTable(3)">Book</button>
                     <button onclick="openMenu(3)">Menu</button>
@@ -46,21 +46,21 @@
         <div id="snooker" class="tab-content">
             <div class="grid">
                 <div class="card">
-                    <img src="/img/snooker-table.png" alt="Table 1">
+                    <img src="./img/snooker-table.png" alt="Table 1">
                     <p>Table 1</p>
                     <button onclick="bookTable(1)">Book</button>
                     <button onclick="openMenu(1)">Menu</button>
                     <button onclick="printBill(1)">Bill</button>
                 </div>
                 <div class="card">
-                    <img src="/img/snooker-table.png" alt="Table 2">
+                    <img src="./img/snooker-table.png" alt="Table 2">
                     <p>Table 2</p>
                     <button onclick="bookTable(2)">Book</button>
                     <button onclick="openMenu(2)">Menu</button>
                     <button onclick="printBill(2)">Bill</button>
                 </div>
                 <div class="card">
-                    <img src="/img/snooker-table.png" alt="Table 3">
+                    <img src="./img/snooker-table.png" alt="Table 3">
                     <p>Table 3</p>
                     <button onclick="bookTable(3)">Book</button>
                     <button onclick="openMenu(3)">Menu</button>
@@ -72,21 +72,21 @@
         <div id="regular" class="tab-content">
             <div class="grid">
                 <div class="card">
-                    <img src="/img/regular-table.png" alt="Table 1">
+                    <img src="./img/regular-table.png" alt="Table 1">
                     <p>Table 1</p>
                     <button onclick="bookTable(1)">Book</button>
                     <button onclick="openMenu(1)">Menu</button>
                     <button onclick="printBill(1)">Bill</button>
                 </div>
                 <div class="card">
-                    <img src="/img/regular-table.png" alt="Table 2">
+                    <img src="./img/regular-table.png" alt="Table 2">
                     <p>Table 2</p>
                     <button onclick="bookTable(2)">Book</button>
                     <button onclick="openMenu(2)">Menu</button>
                     <button onclick="printBill(2)">Bill</button>
                 </div>
                 <div class="card">
-                    <img src="/img/regular-table.png" alt="Table 3">
+                    <img src="./img/regular-table.png" alt="Table 3">
                     <p>Table 3</p>
                     <button onclick="bookTable(3)">Book</button>
                     <button onclick="openMenu(3)">Menu</button>
@@ -103,20 +103,36 @@
             <input type="number" id="bookingInput" placeholder="Enter hours (e.g., 1, 2, 3)">
             <p id="bookingMessage"></p>
             <button class="confirmb-btn" onclick="confirmBooking()">Confirm</button>
-            <button class="close-btn" onclick="closeModal()">Close</button>
+            <button class="close-btn" onclick="closeBookingModal()">Close</button>
+
         </div>
     </div>
 
     <!-- Modal for Drinks -->
     <div class="drink-modal" id="drinkModal" style="display:none;">
-        <div class="modal-content">
+        <div class="drink-content">
             <span class="close" onclick="closeDrinkModal()">&times;</span>
             <h2>Drinks Menu</h2>
             <div id="drinksContainer" class="drinks-container">
                 <!-- Drink cards will be dynamically added here -->
             </div>
+            <button onclick="confirmOrder()" class="confirm-btn">Confirm Order</button>
         </div>
     </div>
+
+    <!-- Modal for Bills -->
+    <div id="billModal" class="bill-modal">
+        <div class="bill-content">
+            <span class="close-bill" onclick="closeModal()">&times;</span>
+            <h2>Bill Details</h2>
+            <div id="billDetails">
+                <!-- Bill details will be dynamically added here -->
+            </div>
+            <button onclick="confirmBill()">Confirm</button>
+        </div>
+    </div>
+
+
 
     <script>
         const tabs = document.querySelectorAll('.tab');
@@ -152,28 +168,25 @@
             }
 
             alert(`Table ${tableNumber} booked ${timeValue} hours.`);
-            closeModal();
+            document.getElementById('bookingModal').style.display = 'none';
         }
-
-        function closeModal() {
-            modal.style.display = 'none';
+        function closeBookingModal() {
+            document.getElementById('bookingModal').style.display = 'none';
         }
 
         const drinks = [
-            { name: 'Coke', description: 'Refreshing cola drink', image: '/img/coke.jpg' },
-            { name: 'Pepsi', description: 'Smooth and cool', image: '/img/pepsi.jpg' },
-            { name: 'Sprite', description: 'Lemon-lime soda', image: '/img/sprite.jpg' },
-            { name: 'Fanta', description: 'Orange flavored soda', image: '/img/fanta.jpg' }
+            { name: 'Coke', price: '1$', image: './img/cola.png' },
+            { name: 'Pepsi', price: '1$', image: './img/cola.png' },
+            { name: 'Sprite', price: '1$', image: './img/cola.png' },
+            { name: 'Fanta', price: '1$', image: './img/cola.png' }
         ];
+
+        let selectedDrinks = {}; // Store selected drinks with quantities
 
         // Open the drink menu modal
         function openMenu(tableNumber) {
-            // alert(`Opening menu for table ${tableNumber}`);
-
-            // Show the modal
             document.getElementById('drinkModal').style.display = 'block';
 
-            // Populate the drinks container with drink cards
             const drinksContainer = document.getElementById('drinksContainer');
             drinksContainer.innerHTML = ''; // Clear previous content
 
@@ -181,12 +194,89 @@
                 const drinkCard = document.createElement('div');
                 drinkCard.classList.add('drink-card');
                 drinkCard.innerHTML = `
-                    <img src="${drink.image}" alt="${drink.name}">
-                    <h3>${drink.name}</h3>
-                    <p>${drink.description}</p>
-                `;
+                        <img src="${drink.image}" alt="${drink.name}">
+                        <h3>${drink.name}</h3>
+                        <p>${drink.price}</p>
+                        <div class="quantity-container">
+                            <button class="qty-btn" onclick="changeQuantity('${drink.name}', -1)">-</button>
+                            <input type="number" id="quantity-${drink.name}" min="1" value="1" readonly>
+                            <button class="qty-btn" onclick="changeQuantity('${drink.name}', 1)">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToOrder('${drink.name}')">Add</button>
+                    `;
                 drinksContainer.appendChild(drinkCard);
             });
+        }
+
+        // Change drink quantity
+        function changeQuantity(drinkName, change) {
+            const quantityInput = document.getElementById(`quantity-${drinkName}`);
+            let quantity = parseInt(quantityInput.value);
+            quantity = Math.max(1, quantity + change); // Ensure minimum is 1
+            quantityInput.value = quantity;
+        }
+
+        // Add selected drink with quantity
+        function addToOrder(drinkName) {
+            const quantityInput = document.getElementById(`quantity-${drinkName}`);
+            const quantity = parseInt(quantityInput.value);
+
+            if (quantity > 0) {
+                selectedDrinks[drinkName] = quantity;
+                alert(`${quantity} ${drinkName}(s) added to order!`);
+            } else {
+                alert("Please select a valid quantity.");
+            }
+        }
+
+        // Confirm order
+        function confirmOrder() {
+            if (Object.keys(selectedDrinks).length === 0) {
+                alert("No drinks selected!");
+                return;
+            }
+
+            console.log("Order confirmed:", selectedDrinks);
+            alert("Order confirmed! Check the console for details.");
+            closeDrinkModal();
+        }
+
+        // Close modal
+        function closeDrinkModal() {
+            document.getElementById('drinkModal').style.display = 'none';
+            selectedDrinks = {}; // Reset order
+        }
+
+
+        // Add selected drink with quantity
+        function addToOrder(drinkName) {
+            const quantityInput = document.getElementById(`quantity-${drinkName}`);
+            const quantity = parseInt(quantityInput.value);
+
+            if (quantity > 0) {
+                selectedDrinks[drinkName] = quantity;
+                alert(`${quantity} ${drinkName}(s) added to order!`);
+            } else {
+                alert("Please select a valid quantity.");
+            }
+        }
+
+        // Confirm order
+        function confirmOrder() {
+            if (Object.keys(selectedDrinks).length === 0) {
+                alert("No drinks selected!");
+                return;
+            }
+
+            console.log("Order confirmed:", selectedDrinks);
+            alert("Order confirmed! Check the console for details.");
+            closeDrinkModal();
+        }
+
+        // Close modal
+        function closeDrinkModal() {
+            document.getElementById('drinkModal').style.display = 'none';
+            selectedDrinks = {}; // Reset order
         }
 
         // Close the drink modal
@@ -195,8 +285,29 @@
         }
 
         function printBill(tableNumber) {
-            alert(`Printing bill for table ${tableNumber}`);
+            const billDetails = `
+        <p>Table Number: ${tableNumber}</p>
+        <p>Items Ordered:</p>
+        <ul>
+            <li>Item 1 - $10</li>
+            <li>Item 2 - $15</li>
+            <li>Item 3 - $20</li>
+        </ul>
+        <p>Total: $45</p>
+    `;
+            document.getElementById('billDetails').innerHTML = billDetails;
+            document.getElementById('billModal').style.display = 'block';
         }
+
+        function closeModal() {
+            document.getElementById('billModal').style.display = 'none';
+        }
+
+        function confirmBill() {
+            alert('Bill confirmed!');
+            closeModal();
+        }
+
     </script>
 </body>
 
